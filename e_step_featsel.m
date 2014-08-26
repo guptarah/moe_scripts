@@ -1,4 +1,4 @@
-function [expert_params,all_likelihood] = e_step_featsel(expert_params,N,K)
+function [expert_params,all_likelihood] = e_step_featsel(expert_params,N,K,targets,iter_counter,all_likelihood)
 
 % compute denom for resp
 denom = zeros(1,N);
@@ -14,7 +14,7 @@ end
 
 %disp('data likelihood');
 %disp(sum(log(denom)));
-all_likelihood(iter_counter-1) = sum(log(denom));
+all_likelihood(iter_counter) = sum(log(denom));
 
 for k = 1:K
         % find responsibilities
@@ -27,4 +27,3 @@ for k = 1:K
         numer = true_class_probs.*data_wts;
         expert_params{k}.resp = numer./denom;
 end
-

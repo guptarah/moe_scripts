@@ -7,6 +7,7 @@ for k = 1:K
         resp = expert_params{k}.resp;
         cur_w = expert_params{k}.class_w;
 	cur_w_featsel = expert_params{k}.w_featsel;
+	cur_v_featsel = expert_params{k}.v_featsel;
 
         eta1 = eta_factor^(floor(max_iter/(max_iter-iter_counter))); % set eta  
         [new_w] = update_w_featsel(data,data_probs,resp,cur_w,cur_w_featsel,targets_1inK,eta1);       

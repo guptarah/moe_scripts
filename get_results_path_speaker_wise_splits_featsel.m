@@ -1,4 +1,4 @@
-function [output] = get_results_path_speaker_wise_splits()
+function [output] = get_results_path_speaker_wise_splits(prob_simannl)
 
 all_data = load('/home/rcf-proj/mv/guptarah/MoE/data/pathology_data/data_to_use/all.data');
 all_targets = load('/home/rcf-proj/mv/guptarah/MoE/data/pathology_data/data_to_use/all.targets');
@@ -35,10 +35,10 @@ for cur_id = unique_ids
 	norm_dev_data = (dev_data - repmat(mu,size(dev_data,1),1))./ repmat(sigma,size(dev_data,1),1);
 
 	num_experts = 3;
-	max_iter = 300;
-	expert_params = moe_train(norm_data,train_targets,num_experts,max_iter);
-	[test_true_class_probs,test_all_probs] = get_test_outputs(expert_params,norm_test_data,test_targets);  
-	[dev_true_class_probs,dev_all_probs] = get_test_outputs(expert_params,norm_dev_data,dev_targets);
+	max_iter = 500;
+	expert_params = moe_train_featsel(norm_data,train_targets,num_experts,max_iter,prob_simannl);
+	[test_true_class_probs,test_all_probs] = get_test_outputs_featsel(expert_params,norm_test_data,test_targets);  
+	[dev_true_class_probs,dev_all_probs] = get_test_outputs_featsel(expert_params,norm_dev_data,dev_targets);
 
 	disp('dev accuracy');
 	disp(mean(dev_true_class_probs > .5));

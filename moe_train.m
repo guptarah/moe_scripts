@@ -1,4 +1,4 @@
-function expert_params = moe_train(data,targets,num_experts,max_iter)
+function [expert_params,all_likelihood] = moe_train(data,targets,num_experts,max_iter)
 
 % data : each row contains one instance
 % targets : discrete values 1 to M
@@ -98,8 +98,7 @@ while iter_counter < max_iter
 		updated_data_probs = compute_classifier_data_probs(data,class_w);
 		expert_params{k}.data_probs = updated_data_probs;
 
-
-		% just saving clust_v's for easy computation
+		% just saving clust_v's for easy computation, needed below
 		clust_v = expert_params{k}.clust_v;
 		all_clust_v(k,:) = clust_v;
 

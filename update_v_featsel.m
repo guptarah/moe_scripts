@@ -1,4 +1,4 @@
-function updated_v = update_v(data,cur_v,cur_v_featsel,resp,eta2)
+function updated_v = update_v_featsel(data,cur_v,cur_v_featsel,resp,eta2)
 
 D = size(data,2);  
 N = size(data,1);
